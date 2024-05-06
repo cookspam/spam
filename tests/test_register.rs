@@ -1,6 +1,6 @@
 use std::str::FromStr;
 
-use ore::{
+use spam::{
     instruction::{register, OreInstruction, RegisterArgs},
     state::{Bus, Treasury},
     utils::Discriminator,
@@ -31,7 +31,7 @@ async fn test_register_account_with_lamports() {
     let (mut banks, payer, blockhash) = setup_program_test_env().await;
 
     // Send lamports to the proof pda
-    let proof_pda = Pubkey::find_program_address(&[PROOF, payer.pubkey().as_ref()], &ore::id());
+    let proof_pda = Pubkey::find_program_address(&[PROOF, payer.pubkey().as_ref()], &spam::id());
     let lamports = Rent::default().minimum_balance(0);
     let tx = transfer(&payer, &proof_pda.0, lamports, blockhash);
     let res = banks.process_transaction(tx).await;
@@ -62,9 +62,9 @@ async fn test_register_fail_other() {
 
     // Try register for another keypair
     let other = Keypair::new();
-    let proof_pda = Pubkey::find_program_address(&[PROOF, other.pubkey().as_ref()], &ore::id());
+    let proof_pda = Pubkey::find_program_address(&[PROOF, other.pubkey().as_ref()], &spam::id());
     let ix = Instruction {
-        program_id: ore::id(),
+        program_id: spam::id(),
         accounts: vec![
             AccountMeta::new(payer.pubkey(), true),
             AccountMeta::new(proof_pda.0, false),
@@ -82,7 +82,7 @@ async fn test_register_fail_other() {
 }
 
 async fn setup_program_test_env() -> (BanksClient, Keypair, solana_program::hash::Hash) {
-    let mut program_test = ProgramTest::new("ore", ore::ID, processor!(ore::process_instruction));
+    let mut program_test = ProgramTest::new("spam", spam::ID, processor!(spam::process_instruction));
     program_test.prefer_bpf(true);
 
     // Busses
@@ -90,7 +90,7 @@ async fn setup_program_test_env() -> (BanksClient, Keypair, solana_program::hash
         program_test.add_account_with_base64_data(
             BUS_ADDRESSES[i],
             1057920,
-            ore::id(),
+            spam::id(),
             bs64::encode(
                 &[
                     &(Bus::discriminator() as u64).to_le_bytes(),
@@ -108,11 +108,11 @@ async fn setup_program_test_env() -> (BanksClient, Keypair, solana_program::hash
 
     // Treasury
     let admin_address = Pubkey::from_str("AeNqnoLwFanMd3ig9WoMxQZVwQHtCtqKMMBsT1sTrvz6").unwrap();
-    let treasury_pda = Pubkey::find_program_address(&[TREASURY], &ore::id());
+    let treasury_pda = Pubkey::find_program_address(&[TREASURY], &spam::id());
     program_test.add_account_with_base64_data(
         treasury_pda.0,
         1614720,
-        ore::id(),
+        spam::id(),
         bs64::encode(
             &[
                 &(Treasury::discriminator() as u64).to_le_bytes(),

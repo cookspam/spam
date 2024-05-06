@@ -1,4 +1,4 @@
-use ore::{state::Treasury, utils::AccountDeserialize, TREASURY_ADDRESS};
+use spam::{state::Treasury, utils::AccountDeserialize, TREASURY_ADDRESS};
 use solana_program::{
     hash::Hash, keccak::Hash as KeccakHash, native_token::LAMPORTS_PER_SOL, rent::Rent,
     system_program,
@@ -16,7 +16,7 @@ async fn test_update_difficulty() {
     let (mut banks, payer, _, blockhash) = setup_program_test_env().await;
 
     // Submit tx
-    let ix = ore::instruction::initialize(payer.pubkey());
+    let ix = spam::instruction::initialize(payer.pubkey());
     let tx = Transaction::new_signed_with_payer(&[ix], Some(&payer.pubkey()), &[&payer], blockhash);
     let res = banks.process_transaction(tx).await;
     assert!(res.is_ok());
@@ -27,7 +27,7 @@ async fn test_update_difficulty() {
 
     // Submit update difficulty ix
     let new_difficulty = KeccakHash::new_unique();
-    let ix = ore::instruction::update_difficulty(payer.pubkey(), new_difficulty.into());
+    let ix = spam::instruction::update_difficulty(payer.pubkey(), new_difficulty.into());
     let tx = Transaction::new_signed_with_payer(&[ix], Some(&payer.pubkey()), &[&payer], blockhash);
     let res = banks.process_transaction(tx).await;
     assert!(res.is_ok());
@@ -52,14 +52,14 @@ async fn test_update_difficulty_bad_signer() {
     let (mut banks, payer, alt_payer, blockhash) = setup_program_test_env().await;
 
     // Submit tx
-    let ix = ore::instruction::initialize(payer.pubkey());
+    let ix = spam::instruction::initialize(payer.pubkey());
     let tx = Transaction::new_signed_with_payer(&[ix], Some(&payer.pubkey()), &[&payer], blockhash);
     let res = banks.process_transaction(tx).await;
     assert!(res.is_ok());
 
     // Submit update difficulty ix
     let new_difficulty = KeccakHash::new_unique();
-    let ix = ore::instruction::update_difficulty(alt_payer.pubkey(), new_difficulty.into());
+    let ix = spam::instruction::update_difficulty(alt_payer.pubkey(), new_difficulty.into());
     let tx = Transaction::new_signed_with_payer(
         &[ix],
         Some(&alt_payer.pubkey()),
@@ -76,14 +76,14 @@ async fn test_update_difficulty_not_enough_accounts() {
     let (mut banks, payer, _, blockhash) = setup_program_test_env().await;
 
     // Submit tx
-    let ix = ore::instruction::initialize(payer.pubkey());
+    let ix = spam::instruction::initialize(payer.pubkey());
     let tx = Transaction::new_signed_with_payer(&[ix], Some(&payer.pubkey()), &[&payer], blockhash);
     let res = banks.process_transaction(tx).await;
     assert!(res.is_ok());
 
     // Submit ix without enough accounts
     let new_difficulty = KeccakHash::new_unique();
-    let mut ix = ore::instruction::update_difficulty(payer.pubkey(), new_difficulty.into());
+    let mut ix = spam::instruction::update_difficulty(payer.pubkey(), new_difficulty.into());
     ix.accounts.remove(1);
     let tx = Transaction::new_signed_with_payer(&[ix], Some(&payer.pubkey()), &[&payer], blockhash);
     let res = banks.process_transaction(tx).await;
@@ -91,21 +91,21 @@ async fn test_update_difficulty_not_enough_accounts() {
 }
 
 async fn setup_program_test_env() -> (BanksClient, Keypair, Keypair, Hash) {
-    let mut program_test = ProgramTest::new("ore", ore::ID, processor!(ore::process_instruction));
+    let mut program_test = ProgramTest::new("spam", spam::ID, processor!(spam::process_instruction));
     program_test.prefer_bpf(true);
 
     // Setup metadata program
-    let data = read_file(&"tests/buffers/metadata_program.bpf");
-    program_test.add_account(
-        mpl_token_metadata::ID,
-        Account {
-            lamports: Rent::default().minimum_balance(data.len()).max(1),
-            data,
-            owner: solana_sdk::bpf_loader::id(),
-            executable: true,
-            rent_epoch: 0,
-        },
-    );
+    // let data = read_file(&"tests/buffers/metadata_program.bpf");
+    // program_test.add_account(
+    //     spl_token::id(),
+    //     Account {
+    //         lamports: Rent::default().minimum_balance(data.len()).max(1),
+    //         data,
+    //         owner: solana_sdk::bpf_loader::id(),
+    //         executable: true,
+    //         rent_epoch: 0,
+    //     },
+    // );
 
     // Setup alt payer
     let payer_alt = Keypair::new();

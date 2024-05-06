@@ -12,7 +12,7 @@ use crate::{
     TARGET_EPOCH_REWARDS, TREASURY,
 };
 
-/// Reset sets up the Ore program for the next epoch. Its responsibilities include:
+/// Reset sets up the Spam program for the next epoch. Its responsibilities include:
 /// 1. Reset bus account rewards counters.
 /// 2. Adjust the reward rate to stabilize inflation.
 /// 3. Top up the treasury token account to backup claims.
@@ -25,9 +25,9 @@ use crate::{
 ///
 /// Discussion:
 /// - It is important that `reset` can only be invoked once per 60 second period to ensure the supply growth rate
-///   stays within the guaranteed bounds of 0 ≤ R ≤ 2 ORE/min.
+///   stays within the guaranteed bounds of 0 ≤ R ≤ 2 SPAM/min.
 /// - The reward rate is dynamically adjusted based on last epoch's actual reward rate (proxy for hashpower) to
-///   target an average supply growth rate of 1 ORE/min.
+///   target an average supply growth rate of 1 SPAM/min.
 pub fn process_reset<'a, 'info>(
     _program_id: &Pubkey,
     accounts: &'a [AccountInfo<'info>],
@@ -122,7 +122,7 @@ pub fn process_reset<'a, 'info>(
 ///
 /// new_rate = current_rate * (target_rewards / actual_rewards)
 ///
-/// The new rate is then smoothed by a constant factor to avoid large fluctuations. In Ore's case,
+/// The new rate is then smoothed by a constant factor to avoid large fluctuations. In Spam's case,
 /// the epochs are short (60 seconds) so a smoothing factor of 2 has been chosen. That is, the reward rate
 /// can at most double or halve from one epoch to the next.
 pub(crate) fn calculate_new_reward_rate(current_rate: u64, epoch_rewards: u64) -> u64 {

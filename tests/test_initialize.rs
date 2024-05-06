@@ -1,12 +1,8 @@
-use mpl_token_metadata::{
-    accounts::Metadata,
-    types::{Key, TokenStandard},
-};
-use ore::{
+use spam::{
     state::{Bus, Treasury},
     utils::AccountDeserialize,
-    BUS_ADDRESSES, BUS_COUNT, INITIAL_DIFFICULTY, INITIAL_REWARD_RATE, METADATA_ADDRESS,
-    METADATA_NAME, METADATA_SYMBOL, METADATA_URI, MINT_ADDRESS, TREASURY,
+    BUS_ADDRESSES, BUS_COUNT, INITIAL_DIFFICULTY, INITIAL_REWARD_RATE, /*METADATA_ADDRESS,
+    METADATA_NAME, METADATA_SYMBOL, METADATA_URI,*/ MINT_ADDRESS, TREASURY,
 };
 use solana_program::{
     hash::Hash, program_option::COption, program_pack::Pack, pubkey::Pubkey, rent::Rent,
@@ -25,12 +21,12 @@ async fn test_initialize() {
     let (mut banks, payer, blockhash) = setup_program_test_env().await;
 
     // Pdas
-    let treasury_pda = Pubkey::find_program_address(&[TREASURY], &ore::id());
+    let treasury_pda = Pubkey::find_program_address(&[TREASURY], &spam::id());
     let treasury_tokens_address =
         spl_associated_token_account::get_associated_token_address(&treasury_pda.0, &MINT_ADDRESS);
 
     // Submit tx
-    let ix = ore::instruction::initialize(payer.pubkey());
+    let ix = spam::instruction::initialize(payer.pubkey());
     let tx = Transaction::new_signed_with_payer(&[ix], Some(&payer.pubkey()), &[&payer], blockhash);
     let res = banks.process_transaction(tx).await;
     assert!(res.is_ok());
@@ -38,7 +34,7 @@ async fn test_initialize() {
     // Test bus state
     for i in 0..BUS_COUNT {
         let bus_account = banks.get_account(BUS_ADDRESSES[i]).await.unwrap().unwrap();
-        assert_eq!(bus_account.owner, ore::id());
+        assert_eq!(bus_account.owner, spam::id());
         let bus = Bus::try_from_bytes(&bus_account.data).unwrap();
         assert_eq!(bus.id as u8, i as u8);
         assert_eq!(bus.rewards, 0);
@@ -46,7 +42,7 @@ async fn test_initialize() {
 
     // Test treasury state
     let treasury_account = banks.get_account(treasury_pda.0).await.unwrap().unwrap();
-    assert_eq!(treasury_account.owner, ore::id());
+    assert_eq!(treasury_account.owner, spam::id());
     let treasury = Treasury::try_from_bytes(&treasury_account.data).unwrap();
     assert_eq!(treasury.bump as u8, treasury_pda.1);
     assert_eq!(treasury.admin, payer.pubkey());
@@ -61,29 +57,9 @@ async fn test_initialize() {
     let mint = Mint::unpack(&mint_account.data).unwrap();
     assert_eq!(mint.mint_authority, COption::Some(treasury_pda.0));
     assert_eq!(mint.supply, 0);
-    assert_eq!(mint.decimals, ore::TOKEN_DECIMALS);
+    assert_eq!(mint.decimals, spam::TOKEN_DECIMALS);
     assert_eq!(mint.is_initialized, true);
     assert_eq!(mint.freeze_authority, COption::None);
-
-    // Test metadata state
-    let metadata_account = banks.get_account(METADATA_ADDRESS).await.unwrap().unwrap();
-    assert_eq!(metadata_account.owner, mpl_token_metadata::ID);
-    let metadata = Metadata::from_bytes(&metadata_account.data).unwrap();
-    assert_eq!(metadata.key, Key::MetadataV1);
-    assert_eq!(metadata.update_authority, payer.pubkey());
-    assert_eq!(metadata.mint, MINT_ADDRESS);
-    assert_eq!(metadata.name.trim_end_matches('\0'), METADATA_NAME);
-    assert_eq!(metadata.symbol.trim_end_matches('\0'), METADATA_SYMBOL);
-    assert_eq!(metadata.uri.trim_end_matches('\0'), METADATA_URI);
-    assert_eq!(metadata.seller_fee_basis_points, 0);
-    assert_eq!(metadata.creators, None);
-    assert_eq!(metadata.primary_sale_happened, false);
-    assert_eq!(metadata.is_mutable, true);
-    assert_eq!(metadata.token_standard, Some(TokenStandard::Fungible));
-    assert_eq!(metadata.collection, None);
-    assert_eq!(metadata.uses, None);
-    assert_eq!(metadata.collection_details, None);
-    assert_eq!(metadata.programmable_config, None);
 
     // Test treasury token state
     let treasury_tokens_account = banks
@@ -109,7 +85,7 @@ async fn test_initialize_not_enough_accounts() {
     let (mut banks, payer, blockhash) = setup_program_test_env().await;
 
     // Submit tx
-    let mut ix = ore::instruction::initialize(payer.pubkey());
+    let mut ix = spam::instruction::initialize(payer.pubkey());
     ix.accounts.remove(1);
     let tx = Transaction::new_signed_with_payer(&[ix], Some(&payer.pubkey()), &[&payer], blockhash);
     let res = banks.process_transaction(tx).await;
@@ -122,9 +98,9 @@ async fn test_initialize_bad_key() {
     let (mut banks, payer, blockhash) = setup_program_test_env().await;
 
     // Bad addresses
-    let bad_pda = Pubkey::find_program_address(&[b"t"], &ore::id());
+    let bad_pda = Pubkey::find_program_address(&[b"t"], &spam::id());
     for i in 1..12 {
-        let mut ix = ore::instruction::initialize(payer.pubkey());
+        let mut ix = spam::instruction::initialize(payer.pubkey());
         ix.accounts[i].pubkey = bad_pda.0;
         let tx =
             Transaction::new_signed_with_payer(&[ix], Some(&payer.pubkey()), &[&payer], blockhash);
@@ -139,8 +115,8 @@ async fn test_initialize_bad_programs() {
     let (mut banks, payer, blockhash) = setup_program_test_env().await;
 
     // Bad addresses
-    for i in 13..18 {
-        let mut ix = ore::instruction::initialize(payer.pubkey());
+    for i in 13..16 {
+        let mut ix = spam::instruction::initialize(payer.pubkey());
         ix.accounts[i].pubkey = Pubkey::new_unique();
         let tx =
             Transaction::new_signed_with_payer(&[ix], Some(&payer.pubkey()), &[&payer], blockhash);
@@ -150,21 +126,21 @@ async fn test_initialize_bad_programs() {
 }
 
 async fn setup_program_test_env() -> (BanksClient, Keypair, Hash) {
-    let mut program_test = ProgramTest::new("ore", ore::ID, processor!(ore::process_instruction));
+    let mut program_test = ProgramTest::new("spam", spam::ID, processor!(spam::process_instruction));
     program_test.prefer_bpf(true);
 
-    // Setup metadata program
-    let data = read_file(&"tests/buffers/metadata_program.bpf");
-    program_test.add_account(
-        mpl_token_metadata::ID,
-        Account {
-            lamports: Rent::default().minimum_balance(data.len()).max(1),
-            data,
-            owner: solana_sdk::bpf_loader::id(),
-            executable: true,
-            rent_epoch: 0,
-        },
-    );
+    // // Setup metadata program
+    // let data = read_file(&"tests/buffers/metadata_program.bpf");
+    // program_test.add_account(
+    //     spl_token::id(),
+    //     Account {
+    //         lamports: Rent::default().minimum_balance(data.len()).max(1),
+    //         data,
+    //         owner: solana_sdk::bpf_loader::id(),
+    //         executable: true,
+    //         rent_epoch: 0,
+    //     },
+    // );
 
     program_test.start().await
 }

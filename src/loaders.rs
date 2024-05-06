@@ -21,7 +21,7 @@ pub fn load_signer<'a, 'info>(info: &'a AccountInfo<'info>) -> Result<(), Progra
 }
 
 /// Errors if:
-/// - Owner is not Ore program.
+/// - Owner is not Spam program.
 /// - Address does not match the expected bus address.
 /// - Data is empty.
 /// - Data cannot deserialize into a bus account.
@@ -59,7 +59,7 @@ pub fn load_bus<'a, 'info>(
 }
 
 /// Errors if:
-/// - Owner is not Ore program.
+/// - Owner is not Spam program.
 /// - Data is empty.
 /// - Data cannot deserialize into a bus account.
 /// - Bus ID is not in the expected range.
@@ -96,7 +96,7 @@ pub fn load_any_bus<'a, 'info>(
 }
 
 /// Errors if:
-/// - Owner is not Ore program.
+/// - Owner is not Spam program.
 /// - Data is empty.
 /// - Data cannot deserialize into a proof account.
 /// - Proof authority does not match the expected address.
@@ -129,7 +129,7 @@ pub fn load_proof<'a, 'info>(
 }
 
 /// Errors if:
-/// - Owner is not Ore program.
+/// - Owner is not Spam program.
 /// - Address does not match the expected address.
 /// - Data is empty.
 /// - Data cannot deserialize into a treasury account.

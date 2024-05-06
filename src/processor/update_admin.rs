@@ -16,7 +16,7 @@ use crate::{instruction::UpdateAdminArgs, loaders::*, state::Treasury, utils::Ac
 /// - The admin authority has one lever of power: the ability to adjust the global
 ///   mining difficulty. If the difficulty is too easy, miners will find hashes very quickly
 ///   and the bottleneck for mining will shift from local compute to Solana bandwidth. In essence,
-///   if the Ore token has value and difficulty is low, mining becomes an incentivized stress
+///   if the Spam token has value and difficulty is low, mining becomes an incentivized stress
 ///   test for the Solana network.
 /// - At the same time, if difficulty is too hard, miners will have to wait a very long period
 ///   of time between finding valid hashes. This will bias rewards to well-resourced miners

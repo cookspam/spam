@@ -8,29 +8,29 @@ pub const INITIAL_REWARD_RATE: u64 = 10u64.pow(3u32);
 
 /// The mining difficulty to initialize the program with.
 pub const INITIAL_DIFFICULTY: Hash = Hash::new_from_array([
-    0, 0, 0, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
+    0, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
     255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
 ]);
 
-/// The decimal precision of the ORE token.
-/// Using SI prefixes, the smallest indivisible unit of ORE is a nanoORE.
-/// 1 nanoORE = 0.000000001 ORE = one billionth of an ORE
+/// The decimal precision of the SPAM token.
+/// Using SI prefixes, the smallest indivisible unit of SPAM is a nanoSPAM.
+/// 1 nanoSPAM = 0.000000001 SPAM = one billionth of an SPAM
 pub const TOKEN_DECIMALS: u8 = 9;
 
-/// One ORE token, denominated in units of nanoORE.
-pub const ONE_ORE: u64 = 10u64.pow(TOKEN_DECIMALS as u32);
+/// One SPAM token, denominated in units of nanoSPAM.
+pub const ONE_SPAM: u64 = 10u64.pow(TOKEN_DECIMALS as u32);
 
 /// The duration of an epoch, in units of seconds.
 pub const EPOCH_DURATION: i64 = 60;
 
-/// The target quantity of ORE to be mined per epoch, in units of nanoORE.
-/// Inflation rate ≈ 1 ORE / epoch (min 0, max 2)
-pub const TARGET_EPOCH_REWARDS: u64 = ONE_ORE;
+/// The target quantity of SPAM to be mined per epoch, in units of nanoSPAM.
+/// Inflation rate ≈ 1 SPAM / epoch (min 0, max 2)
+pub const TARGET_EPOCH_REWARDS: u64 = ONE_SPAM;
 
-/// The maximum quantity of ORE that can be mined per epoch, in units of nanoORE.
-pub const MAX_EPOCH_REWARDS: u64 = ONE_ORE.saturating_mul(2);
+/// The maximum quantity of SPAM that can be mined per epoch, in units of nanoSPAM.
+pub const MAX_EPOCH_REWARDS: u64 = ONE_SPAM.saturating_mul(2);
 
-/// The quantity of ORE each bus is allowed to issue per epoch.
+/// The quantity of SPAM each bus is allowed to issue per epoch.
 pub const BUS_EPOCH_REWARDS: u64 = MAX_EPOCH_REWARDS.saturating_div(BUS_COUNT as u64);
 
 /// The number of bus accounts, for parallelizing mine operations.
@@ -48,9 +48,6 @@ static_assertions::const_assert!(
 /// The seed of the bus account PDA.
 pub const BUS: &[u8] = b"bus";
 
-/// The seed of the metadata account PDA.
-pub const METADATA: &[u8] = b"metadata";
-
 /// The seed of the mint account PDA.
 pub const MINT: &[u8] = b"mint";
 
@@ -60,37 +57,25 @@ pub const PROOF: &[u8] = b"proof";
 /// The seed of the treasury account PDA.
 pub const TREASURY: &[u8] = b"treasury";
 
-/// The name for token metadata.
-pub const METADATA_NAME: &str = "Ore";
-
-/// The ticker symbol for token metadata.
-pub const METADATA_SYMBOL: &str = "ORE";
-
-/// The uri for token metdata.
-pub const METADATA_URI: &str = "https://ore.supply/metadata.json";
-
 /// Noise for deriving the mint PDA.
 pub const MINT_NOISE: [u8; 16] = [
-    166, 199, 85, 221, 225, 119, 21, 185, 160, 82, 242, 237, 194, 84, 250, 252,
+    210, 212, 200, 30, 119, 36, 136, 231, 233, 213, 138, 58, 17, 208, 176, 157
 ];
 
 /// The addresses of the bus accounts.
 pub const BUS_ADDRESSES: [Pubkey; BUS_COUNT] = [
-    pubkey!("9ShaCzHhQNvH8PLfGyrJbB8MeKHrDnuPMLnUDLJ2yMvz"),
-    pubkey!("4Cq8685h9GwsaD5ppPsrtfcsk3fum8f9UP4SPpKSbj2B"),
-    pubkey!("8L1vdGdvU3cPj9tsjJrKVUoBeXYvAzJYhExjTYHZT7h7"),
-    pubkey!("JBdVURCrUiHp4kr7srYtXbB7B4CwurUt1Bfxrxw6EoRY"),
-    pubkey!("DkmVBWJ4CLKb3pPHoSwYC2wRZXKKXLD2Ued5cGNpkWmr"),
-    pubkey!("9uLpj2ZCMqN6Yo1vV6yTkP6dDiTTXmeM5K3915q5CHyh"),
-    pubkey!("EpcfjBs8eQ4unSMdowxyTE8K3vVJ3XUnEr5BEWvSX7RB"),
-    pubkey!("Ay5N9vKS2Tyo2M9u9TFt59N1XbxdW93C7UrFZW3h8sMC"),
+    pubkey!("DzLpPA3uYgTzSnCJDamwKhKzYyKKPraN1SJdv3hboBMB"),
+    pubkey!("2Zn77yZspohsPkLP9zcWX3dxuQ69dTRNyJciVEDENJh3"),
+    pubkey!("4p8nEz7XMayiAkHYCrgs5WPWv4DUAxzcKpzX4X1Lyf61"),
+    pubkey!("5g6DanqLyEwEm2zrbJCR67g4NwGMNwPcF6gB9AqbxncJ"),
+    pubkey!("8ktdXVusqMvNHkZmUnSoRy2kjQEsVsGC387K9vXL2Q6"),
+    pubkey!("DrKC38wdpumpkJwPLEa7yky9su1v82Ng2kNPy7UMt5fa"),
+    pubkey!("CM6ergyxwT2kKaGD2EMXwgi8KBKDa5sCZESWRhhqRT1z"),
+    pubkey!("F9kpy13nmNkxGUA5riGbAkLkR6Ky62LgiydUD5AfTEKm"),
 ];
 
-/// The address of the mint metadata account.
-pub const METADATA_ADDRESS: Pubkey = pubkey!("2nXZSxfjELuRatcoY64yHdFLZFi3mtesxobHmsoU3Dag");
-
 /// The address of the mint account.
-pub const MINT_ADDRESS: Pubkey = pubkey!("oreoN2tQbHXVaZsr3pf66A48miqcBXCDJozganhEJgz");
+pub const MINT_ADDRESS: Pubkey = pubkey!("spamwgqKEBE2BtsfE2QesxpmYZZKp3LfHsEdF1MLpfU");
 
 /// The address of the treasury account.
-pub const TREASURY_ADDRESS: Pubkey = pubkey!("FTap9fv2GPpWGqrLj3o4c9nHH7p36ih7NbSWHnrkQYqa");
+pub const TREASURY_ADDRESS: Pubkey = pubkey!("3amHhT6cLgvfjKWbka6DYjs9zS5pLFnmYw1g8C6DPa4x");

@@ -1,18 +1,18 @@
 [package]
-name = "ore-program"
+name = "spam-program"
 version = "1.2.0"
-description = "Ore is a digital currency you can mine from anywhere, at home or on your phone."
+description = "The ultimate Solana testnet challenge! Make transactions, stress test the network, and earn SPAM tokens."
 edition = "2021"
 license = "Apache-2.0"
-homepage = "https://ore.supply"
-documentation = "https://ore.supply"
-repository = "https://github.com/hardhatchad/ore"
+homepage = "https://spam.supply"
+documentation = "https://spam.supply"
+repository = "https://github.com/cookspam/spam"
 readme = "./README.md"
 keywords = ["solana", "crypto", "mining"]
 
 [lib]
 crate-type = ["cdylib", "lib"]
-name = "ore"
+name = "spam"
 
 [features]
 no-entrypoint = []
@@ -21,7 +21,6 @@ default = []
 [dependencies]
 bs58 = "0.5.0"
 bytemuck = "1.14.3"
-mpl-token-metadata = "4.1.2"
 num_enum = "0.7.2"
 shank = "0.3.0"
 solana-program = "^1.16"

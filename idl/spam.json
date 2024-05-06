@@ -1,16 +1,16 @@
 {
-  "version": "0.0.1",
-  "name": "ore",
+  "version": "1.2.0",
+  "name": "spam",
   "instructions": [
     {
       "name": "Reset",
       "accounts": [
         {
-          "name": "oreProgram",
+          "name": "spamProgram",
           "isMut": false,
           "isSigner": false,
           "docs": [
-            "Ore program"
+            "Spam program"
           ]
         },
         {
@@ -26,7 +26,7 @@
           "isMut": true,
           "isSigner": false,
           "docs": [
-            "Ore bus account 0"
+            "Spam bus account 0"
           ]
         },
         {
@@ -34,7 +34,7 @@
           "isMut": true,
           "isSigner": false,
           "docs": [
-            "Ore bus account 1"
+            "Spam bus account 1"
           ]
         },
         {
@@ -42,7 +42,7 @@
           "isMut": true,
           "isSigner": false,
           "docs": [
-            "Ore bus account 2"
+            "Spam bus account 2"
           ]
         },
         {
@@ -50,7 +50,7 @@
           "isMut": true,
           "isSigner": false,
           "docs": [
-            "Ore bus account 3"
+            "Spam bus account 3"
           ]
         },
         {
@@ -58,7 +58,7 @@
           "isMut": true,
           "isSigner": false,
           "docs": [
-            "Ore bus account 4"
+            "Spam bus account 4"
           ]
         },
         {
@@ -66,7 +66,7 @@
           "isMut": true,
           "isSigner": false,
           "docs": [
-            "Ore bus account 5"
+            "Spam bus account 5"
           ]
         },
         {
@@ -74,7 +74,7 @@
           "isMut": true,
           "isSigner": false,
           "docs": [
-            "Ore bus account 6"
+            "Spam bus account 6"
           ]
         },
         {
@@ -82,7 +82,7 @@
           "isMut": true,
           "isSigner": false,
           "docs": [
-            "Ore bus account 7"
+            "Spam bus account 7"
           ]
         },
         {
@@ -90,7 +90,7 @@
           "isMut": true,
           "isSigner": false,
           "docs": [
-            "Ore token mint account"
+            "Spam token mint account"
           ]
         },
         {
@@ -98,7 +98,7 @@
           "isMut": true,
           "isSigner": false,
           "docs": [
-            "Ore treasury account"
+            "Spam treasury account"
           ]
         },
         {
@@ -106,7 +106,7 @@
           "isMut": true,
           "isSigner": false,
           "docs": [
-            "Ore treasury token account"
+            "Spam treasury token account"
           ]
         },
         {
@@ -128,11 +128,11 @@
       "name": "Register",
       "accounts": [
         {
-          "name": "oreProgram",
+          "name": "spamProgram",
           "isMut": false,
           "isSigner": false,
           "docs": [
-            "Ore program"
+            "Spam program"
           ]
         },
         {
@@ -148,7 +148,7 @@
           "isMut": true,
           "isSigner": false,
           "docs": [
-            "Ore miner proof account"
+            "Spam proof account"
           ]
         },
         {
@@ -170,11 +170,11 @@
       "name": "Mine",
       "accounts": [
         {
-          "name": "oreProgram",
+          "name": "spamProgram",
           "isMut": false,
           "isSigner": false,
           "docs": [
-            "Ore program"
+            "Spam program"
           ]
         },
         {
@@ -190,7 +190,7 @@
           "isMut": true,
           "isSigner": false,
           "docs": [
-            "Ore bus account"
+            "Spam bus account"
           ]
         },
         {
@@ -198,7 +198,7 @@
           "isMut": true,
           "isSigner": false,
           "docs": [
-            "Ore miner proof account"
+            "Spam proof account"
           ]
         },
         {
@@ -206,7 +206,7 @@
           "isMut": false,
           "isSigner": false,
           "docs": [
-            "Ore treasury account"
+            "Spam treasury account"
           ]
         },
         {
@@ -228,11 +228,11 @@
       "name": "Claim",
       "accounts": [
         {
-          "name": "oreProgram",
+          "name": "spamProgram",
           "isMut": false,
           "isSigner": false,
           "docs": [
-            "Ore program"
+            "Spam program"
           ]
         },
         {
@@ -252,19 +252,11 @@
           ]
         },
         {
-          "name": "mint",
-          "isMut": false,
-          "isSigner": false,
-          "docs": [
-            "Ore token mint account"
-          ]
-        },
-        {
           "name": "proof",
           "isMut": true,
           "isSigner": false,
           "docs": [
-            "Ore miner proof account"
+            "Spam proof account"
           ]
         },
         {
@@ -272,7 +264,7 @@
           "isMut": true,
           "isSigner": false,
           "docs": [
-            "Ore treasury account"
+            "Spam treasury account"
           ]
         },
         {
@@ -280,7 +272,7 @@
           "isMut": true,
           "isSigner": false,
           "docs": [
-            "Ore treasury token account"
+            "Spam treasury token account"
           ]
         },
         {
@@ -302,15 +294,15 @@
       "name": "Initialize",
       "accounts": [
         {
-          "name": "oreProgram",
+          "name": "spamProgram",
           "isMut": false,
           "isSigner": false,
           "docs": [
-            "Ore program"
+            "Spam program"
           ]
         },
         {
-          "name": "admin",
+          "name": "signer",
           "isMut": false,
           "isSigner": true,
           "docs": [
@@ -322,7 +314,7 @@
           "isMut": true,
           "isSigner": false,
           "docs": [
-            "Ore bus account 0"
+            "Spam bus account 0"
           ]
         },
         {
@@ -330,7 +322,7 @@
           "isMut": true,
           "isSigner": false,
           "docs": [
-            "Ore bus account 1"
+            "Spam bus account 1"
           ]
         },
         {
@@ -338,7 +330,7 @@
           "isMut": true,
           "isSigner": false,
           "docs": [
-            "Ore bus account 2"
+            "Spam bus account 2"
           ]
         },
         {
@@ -346,7 +338,7 @@
           "isMut": true,
           "isSigner": false,
           "docs": [
-            "Ore bus account 3"
+            "Spam bus account 3"
           ]
         },
         {
@@ -354,7 +346,7 @@
           "isMut": true,
           "isSigner": false,
           "docs": [
-            "Ore bus account 4"
+            "Spam bus account 4"
           ]
         },
         {
@@ -362,7 +354,7 @@
           "isMut": true,
           "isSigner": false,
           "docs": [
-            "Ore bus account 5"
+            "Spam bus account 5"
           ]
         },
         {
@@ -370,7 +362,7 @@
           "isMut": true,
           "isSigner": false,
           "docs": [
-            "Ore bus account 6"
+            "Spam bus account 6"
           ]
         },
         {
@@ -378,23 +370,23 @@
           "isMut": true,
           "isSigner": false,
           "docs": [
-            "Ore bus account 7"
+            "Spam bus account 7"
           ]
         },
         {
           "name": "mint",
-          "isMut": false,
+          "isMut": true,
           "isSigner": false,
           "docs": [
-            "Ore token mint account"
+            "Spam mint account"
           ]
         },
         {
           "name": "treasury",
-          "isMut": false,
+          "isMut": true,
           "isSigner": false,
           "docs": [
-            "Ore treasury account"
+            "Spam treasury account"
           ]
         },
         {
@@ -402,7 +394,7 @@
           "isMut": true,
           "isSigner": false,
           "docs": [
-            "Ore treasury token account"
+            "Spam treasury token account"
           ]
         },
         {
@@ -448,11 +440,19 @@
       "name": "UpdateAdmin",
       "accounts": [
         {
-          "name": "oreProgram",
+          "name": "spamProgram",
           "isMut": false,
           "isSigner": false,
           "docs": [
-            "Ore program"
+            "Spam program"
+          ]
+        },
+        {
+          "name": "signer",
+          "isMut": false,
+          "isSigner": true,
+          "docs": [
+            "Admin signer"
           ]
         },
         {
@@ -460,7 +460,41 @@
           "isMut": false,
           "isSigner": false,
           "docs": [
-            "Ore treasury account"
+            "Spam treasury account"
+          ]
+        }
+      ],
+      "args": [],
+      "discriminant": {
+        "type": "u8",
+        "value": 101
+      }
+    },
+    {
+      "name": "UpdateDifficulty",
+      "accounts": [
+        {
+          "name": "spamProgram",
+          "isMut": false,
+          "isSigner": false,
+          "docs": [
+            "Spam program"
+          ]
+        },
+        {
+          "name": "signer",
+          "isMut": false,
+          "isSigner": true,
+          "docs": [
+            "Admin signer"
+          ]
+        },
+        {
+          "name": "treasury",
+          "isMut": false,
+          "isSigner": false,
+          "docs": [
+            "Spam treasury account"
           ]
         }
       ],
@@ -468,32 +502,6 @@
       "discriminant": {
         "type": "u8",
         "value": 102
-      }
-    },
-    {
-      "name": "UpdateDifficulty",
-      "accounts": [
-        {
-          "name": "oreProgram",
-          "isMut": false,
-          "isSigner": false,
-          "docs": [
-            "Ore program"
-          ]
-        },
-        {
-          "name": "treasury",
-          "isMut": false,
-          "isSigner": false,
-          "docs": [
-            "Ore treasury account"
-          ]
-        }
-      ],
-      "args": [],
-      "discriminant": {
-        "type": "u8",
-        "value": 103
       }
     }
   ],
@@ -564,7 +572,7 @@
             }
           },
           {
-            "name": "epochStartAt",
+            "name": "lastResetAt",
             "type": "i64"
           },
           {
@@ -582,37 +590,42 @@
   "errors": [
     {
       "code": 0,
-      "name": "EpochActive",
-      "msg": "The epoch is still active and cannot be reset"
+      "name": "NotStarted",
+      "msg": "The starting time has not passed yet"
     },
     {
       "code": 1,
-      "name": "EpochExpired",
-      "msg": "The epoch has expired and needs reset"
+      "name": "NeedsReset",
+      "msg": "The epoch has ended and needs reset"
     },
     {
       "code": 2,
-      "name": "InvalidHash",
-      "msg": "The provided hash was invalid"
+      "name": "ResetTooEarly",
+      "msg": "The epoch is active and cannot be reset at this time"
     },
     {
       "code": 3,
-      "name": "InsufficientHashDifficulty",
-      "msg": "The provided hash does not satisfy the difficulty requirement"
+      "name": "HashInvalid",
+      "msg": "The provided hash was invalid"
     },
     {
       "code": 4,
-      "name": "InsufficientBusRewards",
-      "msg": "The bus has insufficient rewards to mine at this time"
+      "name": "DifficultyNotSatisfied",
+      "msg": "The provided hash does not satisfy the difficulty requirement"
     },
     {
       "code": 5,
-      "name": "InvalidClaimAmount",
-      "msg": "The claim amount cannot be larger than the claimable rewards"
+      "name": "BusRewardsInsufficient",
+      "msg": "The bus does not have enough rewards to issue at this time"
+    },
+    {
+      "code": 6,
+      "name": "ClaimTooLarge",
+      "msg": "The claim amount cannot be greater than the claimable rewards"
     }
   ],
   "metadata": {
     "origin": "shank",
-    "address": "ore2mSzJwAZhxLyCLbNEnFvYq9U8jvCMvUBrVvbmqDF"
+    "address": "cookr8CThnfEQZvvrB6zhh5K4X8XNkPjJi4uUDtkBuG"
   }
 }

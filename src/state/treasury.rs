@@ -9,7 +9,7 @@ use crate::{
 };
 
 /// Treasury is a singleton account which manages all program wide variables.
-/// It is the mint authority for the Ore token and also the authority of the program-owned token account.
+/// It is the mint authority for the Spam token and also the authority of the program-owned token account.
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq, Pod, ShankAccount, Zeroable)]
 pub struct Treasury {

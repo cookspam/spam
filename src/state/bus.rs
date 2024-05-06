@@ -8,7 +8,7 @@ use crate::{
 
 /// Bus accounts are responsible for distributing mining rewards.
 /// There are 8 busses total to minimize write-lock contention and allow for parallel mine operations.
-/// Every epoch, the bus account rewards counters are topped up to 0.25 ORE each (2 ORE split amongst 8 busses).
+/// Every epoch, the bus account rewards counters are topped up to 0.25 SPAM each (2 SPAM split amongst 8 busses).
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq, Pod, ShankAccount, Zeroable)]
 pub struct Bus {
